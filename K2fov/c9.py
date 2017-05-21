@@ -1,6 +1,6 @@
 """Functions that detail the K2C9 microlensing superstamp.
 """
-from __future__ import print_function
+
 
 import os
 import json

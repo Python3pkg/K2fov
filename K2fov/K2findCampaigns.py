@@ -18,7 +18,7 @@ def printChannelColRow(campaign, ra, dec):
     """Prints the channel, col, row for a given campaign and coordinate."""
     fovobj = fields.getKeplerFov(campaign)
     ch, col, row = fovobj.getChannelColRow(ra, dec)
-    print("Position in C{}: channel {}, col {:.0f}, row {:.0f}.".format(campaign, int(ch), col, row))
+    print(("Position in C{}: channel {}, col {:.0f}, row {:.0f}.".format(campaign, int(ch), col, row)))
 
 
 def findCampaigns(ra, dec):
@@ -89,12 +89,12 @@ def findCampaignsByName(target):
 def save_context_plots(ra, dec, targetname=""):
     from . import plot
     output_fn = "K2findCampaigns.png"
-    print("Writing {0}".format(output_fn))
+    print(("Writing {0}".format(output_fn)))
     myplot = plot.create_context_plot(ra, dec, name=targetname)
     myplot.fig.savefig(output_fn, dpi=300)
 
     output_fn = "K2findCampaigns-zoom.png"
-    print("Writing {0}".format(output_fn))
+    print(("Writing {0}".format(output_fn)))
     myplot = plot.create_context_plot_zoomed(ra, dec, name=targetname)
     myplot.fig.savefig(output_fn, dpi=300)
 
@@ -117,11 +117,11 @@ def K2findCampaigns_main(args=None):
     campaigns = findCampaigns(ra, dec)
     # Print the result
     if len(campaigns):
-        print(Highlight.GREEN + "Success! The target is on silicon "
-              "during K2 campaigns {0}.".format(campaigns) + Highlight.END)
+        print((Highlight.GREEN + "Success! The target is on silicon "
+              "during K2 campaigns {0}.".format(campaigns) + Highlight.END))
     else:
-        print(Highlight.RED + "Sorry, the target is not on silicon "
-              "during any K2 campaign." + Highlight.END)
+        print((Highlight.RED + "Sorry, the target is not on silicon "
+              "during any K2 campaign." + Highlight.END))
     # Print the pixel positions
     for c in campaigns:
         printChannelColRow(c, ra, dec)
@@ -148,19 +148,19 @@ def K2findCampaigns_byname_main(args=None):
     try:
         campaigns, ra, dec = findCampaignsByName(targetname)
     except ValueError:
-        print("Error: could not retrieve coordinates for {0}.".format(targetname))
+        print(("Error: could not retrieve coordinates for {0}.".format(targetname)))
         print("The target may be unknown or there may be a problem "
               "connecting to the coordinate server.")
         sys.exit(1)
     # Print the result
     if len(campaigns):
-        print(Highlight.GREEN +
+        print((Highlight.GREEN +
               "Success! {0} is on silicon ".format(targetname) +
               "during K2 campaigns {0}.".format(campaigns) +
-              Highlight.END)
+              Highlight.END))
     else:
-        print(Highlight.RED + "Sorry, {} is not on silicon "
-              "during any K2 campaign.".format(targetname) + Highlight.END)
+        print((Highlight.RED + "Sorry, {} is not on silicon "
+              "during any K2 campaign.".format(targetname) + Highlight.END))
     # Print the pixel positions
     for c in campaigns:
         printChannelColRow(c, ra, dec)
@@ -187,14 +187,14 @@ def K2findCampaigns_csv_main(args=None):
         campaigns = np.array([findCampaigns(ra[idx], dec[idx])
                               for idx in range(len(ra))])
         output = np.array([ra, dec, kepmag, campaigns])
-        print("Writing {0}.".format(output_fn))
+        print(("Writing {0}.".format(output_fn)))
         np.savetxt(output_fn, output.T, delimiter=', ',
                    fmt=['%10.10f', '%10.10f', '%10.2f', '%s'])
     # If this fails, assume the file has a single "name" column
     except ValueError:
         names = [name.strip() for name in open(input_fn, "r").readlines()
                  if len(name.strip()) > 0]
-        print("Writing {0}.".format(output_fn))
+        print(("Writing {0}.".format(output_fn)))
         output = open(output_fn, "w")
         for target in names:
             try:

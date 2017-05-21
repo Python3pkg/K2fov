@@ -2,7 +2,7 @@
 The code will accept a file containing a minimum of two columns RA Dec.
 where RA and Dec are in decimal degrees
 """
-from __future__ import division, print_function
+
 import sys
 
 from . import logger

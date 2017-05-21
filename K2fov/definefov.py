@@ -2,7 +2,7 @@
 Code to create, and load, unit vectors representing the
 channel corners in the field of view
 """
-from __future__ import print_function
+
 
 import numpy as np
 
